@@ -20,6 +20,34 @@ const Ul = styled.ul`
         position: relative;
         padding: 10px;
         margin: 10px 0;
+
+        &:hover .delete-btn {
+            opacity: 1;
+        }
+    }
+
+    .plus {
+        border-right: 5px solid #2ecc71;
+    }
+
+    .minus {
+        border-right: 5px solid #c0392b;
+    }
+
+    .delete-btn {
+        cursor: pointer;
+        background-color: #e74c3c;
+        border: 0;
+        color: #fff;
+        font-size: 20px;
+        line-height: 20px;
+        padding: 2px 5px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(-100%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 `
 
@@ -31,10 +59,12 @@ const TransactionList = () => {
                 <li className="plus">
                     Salary
                     <span> $100</span>
+                    <button className="delete-btn">x</button>
                 </li>
                 <li className="minus">
                     Food
                     <span>$0</span>
+                    <button className="delete-btn">x</button>
                 </li>
             </Ul>
         </>
