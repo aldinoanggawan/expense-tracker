@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { GlobalContext } from '../context/GlobalState'
 
 const Div = styled.div`
     h4 {
@@ -14,10 +15,16 @@ const Div = styled.div`
 `
 
 const Balance = () => {
+    const { transactions } = useContext(GlobalContext)
+
+    const amounts = transactions.map(transaction => transaction.amount) //amounts is an array of each amount
+
+    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2)
+
     return(
         <Div>
             <h4>Your Balance</h4>
-            <h1>$100</h1>
+            <h1>${total}</h1>
         </Div>
     )
 }
