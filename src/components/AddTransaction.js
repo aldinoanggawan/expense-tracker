@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const H3 = styled.h3`
@@ -38,18 +38,32 @@ const Form = styled.form`
 `
 
 const AddTransaction = () => {
+    const [text, setText] = useState('')
+    const [amount, setAmount] = useState('')
+
+    const handleTextChange = e => {
+        setText(e.target.value)
+    }
+
+    const handleAmountChange = e => {
+        setAmount(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+    }
 
     return(
         <>
             <H3>Add new transaction</H3>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="text">Text</label>
-                    <input className="text" id="text" type="text" placeholder="Enter text"></input>
+                    <input className="text" id="text" type="text" onChange={handleTextChange} value={text} placeholder="Enter text"></input>
                 </div>
                 <div>
                     <label htmlFor="amount">Amount</label>
-                    <input className="number" id="amount" type="number" placeholder="Enter amount"></input>
+                    <input className="number" id="amount" type="number" onChange={handleAmountChange} value={amount} placeholder="Enter amount"></input>
                 </div>
                 <div>
                     <input className="submit" type="submit" value="Add transaction" />

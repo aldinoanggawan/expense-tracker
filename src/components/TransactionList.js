@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { GlobalContext } from '../context/GlobalState'
+
+import Transaction from './Transaction'
 
 const H3 = styled.h3`
     border-bottom: 1px solid #bbb;
@@ -39,6 +42,7 @@ const Ul = styled.ul`
         background-color: #e74c3c;
         border: 0;
         color: #fff;
+        text-align: center;
         font-size: 20px;
         line-height: 20px;
         padding: 2px 5px;
@@ -52,11 +56,16 @@ const Ul = styled.ul`
 `
 
 const TransactionList = () => {
+    const { transactions } = useContext(GlobalContext)
+
     return(
         <>
             <H3>History</H3>
             <Ul>
-                <li className="plus">
+                {transactions.map(transaction => (
+                    <Transaction key={transaction.id} transaction={transaction} />
+                ))}
+                {/* <li className="plus">
                     Salary
                     <span> $100</span>
                     <button className="delete-btn">x</button>
@@ -65,7 +74,7 @@ const TransactionList = () => {
                     Food
                     <span>$0</span>
                     <button className="delete-btn">x</button>
-                </li>
+                </li> */}
             </Ul>
         </>
     )
