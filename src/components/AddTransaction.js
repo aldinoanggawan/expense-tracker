@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { GlobalContext } from '../context/GlobalState'
 
 const H3 = styled.h3`
     border-bottom: 1px solid #bbb;
@@ -38,8 +39,10 @@ const Form = styled.form`
 `
 
 const AddTransaction = () => {
+    const { addTransaction } = useContext(GlobalContext)
+
     const [text, setText] = useState('')
-    const [amount, setAmount] = useState('')
+    const [amount, setAmount] = useState(0)
 
     const handleTextChange = e => {
         setText(e.target.value)
@@ -51,6 +54,13 @@ const AddTransaction = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
+
+        const newTransaction = {
+            id: Math.floor(Math.random() * 1000000),
+            text,
+            amount: +amount
+        }
+        addTransaction(newTransaction)
     }
 
     return(
@@ -59,11 +69,11 @@ const AddTransaction = () => {
             <Form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="text">Text</label>
-                    <input className="text" id="text" type="text" onChange={handleTextChange} value={text} placeholder="Enter text"></input>
+                    <input className="text" type="text" onChange={handleTextChange} value={text} placeholder="Enter text"></input>
                 </div>
                 <div>
                     <label htmlFor="amount">Amount</label>
-                    <input className="number" id="amount" type="number" onChange={handleAmountChange} value={amount} placeholder="Enter amount"></input>
+                    <input className="number" type="number" onChange={handleAmountChange} value={amount} placeholder="Enter amount"></input>
                 </div>
                 <div>
                     <input className="submit" type="submit" value="Add transaction" />

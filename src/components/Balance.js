@@ -18,7 +18,6 @@ const Balance = () => {
     const { transactions } = useContext(GlobalContext)
 
     const amounts = transactions.map(transaction => transaction.amount) //amounts is an array of each amount
-
     const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2)
 
     return(
