@@ -42,7 +42,7 @@ const AddTransaction = () => {
     const { addTransaction } = useContext(GlobalContext)
 
     const [text, setText] = useState('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState('')
 
     const handleTextChange = e => {
         setText(e.target.value)
@@ -61,6 +61,8 @@ const AddTransaction = () => {
             amount: +amount
         }
         addTransaction(newTransaction)
+        setText('')
+        setAmount('')
     }
 
     return(
@@ -76,7 +78,7 @@ const AddTransaction = () => {
                     <input className="number" type="number" onChange={handleAmountChange} value={amount} placeholder="Enter amount"></input>
                 </div>
                 <div>
-                    <input className="submit" type="submit" value="Add transaction" />
+                    <input disabled={!text || !amount} className="submit" type="submit" value="Add transaction" />
                 </div>
             </Form>
         </>
