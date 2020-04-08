@@ -17,11 +17,25 @@ export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
     // Actions
-    const addTransaction = (transaction) => {
-        dispatch({
-            type: 'ADD_TRANSACTION',
-            payload: transaction
-        })
+    const addTransaction = async(transaction) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await Axios.post('http://127.0.0.1:5000/api/v1/transactions', transaction, config)
+            dispatch({
+                type: 'ADD_TRANSACTION',
+                payload: res.data.data
+            })
+        } catch (err) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+        }
     }
     
     const deleteTransaction = (id) => {
