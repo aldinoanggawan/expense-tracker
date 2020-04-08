@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { GlobalContext } from '../context/GlobalState'
 
@@ -56,8 +56,12 @@ const Ul = styled.ul`
 `
 
 const TransactionList = () => {
-    const { transactions } = useContext(GlobalContext)
+    const { transactions, getTransactions } = useContext(GlobalContext)
 
+    useEffect(() => {
+        getTransactions()
+    }, [])
+    
     return(
         <>
             <H3>History</H3>
