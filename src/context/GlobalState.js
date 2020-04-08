@@ -38,11 +38,21 @@ export const GlobalProvider = ({ children }) => {
         }
     }
     
-    const deleteTransaction = (id) => {
-        dispatch({
-            type: 'DELETE_TRANSACTION',
-            payload: id
-        })
+    const deleteTransaction = async(id) => {
+        try {
+            await Axios.post(`http://127.0.0.1:5000/api/v1/transaction/${id}`)
+
+            dispatch({
+                type: 'DELETE_TRANSACTION',
+                payload: id
+            })
+        } catch (err) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+        }
+        
     }
 
     const getTransactions = async() => {
